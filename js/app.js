@@ -26,7 +26,7 @@ function fetchQuery(operation, variables) {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJkZWZhdWx0QGRlZmF1bHQiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaWF0IjoxNTQzNjA1ODU5LCJleHAiOjE1NDQyMTA2NTl9.fSnUT4spAoktQ51NA-xf5gvoT9Wzc0MdvSDXFKCOlzI' 
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJkZWZhdWx0QGRlZmF1bHQiLCJyb2xlcyI6WyJhZG1pbiJdfSwiaWF0IjoxNTQ0MjExMDQ3LCJleHAiOjE1NDQ4MTU4NDd9.eYUp8WWhz4rUKnJGJ9WuRZfxTY-ApHiNslISROnEBvE' 
     },
     body: JSON.stringify({
       query: operation.text,
@@ -51,11 +51,11 @@ ReactDOM.render(
       
     }
     `}
-    variables={{count:3}}
+    variables={{count:30}}
     render={({error, props}) => {
 
       if (props) {
-        console.log('appquery', props)
+        //console.log('appquery', props)
         
         return <TodoApp data={props} />;
       } else {

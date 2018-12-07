@@ -27,7 +27,7 @@ const mutation = graphql`
 let tempID = 0;
 
 
-function commit(environment, text) {
+function commit(environment, text, cursor) {
   return commitMutation(environment, {
     mutation,
     variables: {
@@ -35,16 +35,30 @@ function commit(environment, text) {
         name: text,
       },
     },
-    configs: [{
-      type: 'RANGE_ADD',
-      parentID: 'id',
-      connectionInfo: [{
-        key: 'Todos_todoesConnection',
-        rangeBehavior: 'append',
-      }],
-      edgeName: '',
-    }],
-  })
+    updater: store => {
+      const payload = store.getRootField('createTodo');
+      
+      //const linked = payload.getLinkedRecord('createTodo')
+
+      console.log('payload', payload)
+      const clientRoot = store.get('client:root');
+      console.log('clientRoot', clientRoot);
+      const conn = ConnectionHandler.getConnection(clientRoot, 'Todos_todoesConnection');
+
+      console.log('conn', conn)
+
+      ConnectionHandler.insertEdgeAfter(conn, payload);
+    }
+  //   configs: [{
+  //     type: 'RANGE_ADD',
+  //     parentID: 'client:root',
+  //     connectionInfo: [{
+  //       key: 'Todos_todoesConnection',
+  //       rangeBehavior: 'append',
+  //     }],
+  //     edgeName: 'createTodo',
+  //   }],
+    })
 }
 
 export default {commit};

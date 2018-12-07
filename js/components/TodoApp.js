@@ -21,7 +21,8 @@ class TodoApp extends React.Component {
   _handleTextInputSave = text => {
     AddTodoMutation.commit(
       this.props.relay.environment,
-      text
+      text,
+      this.props.data.todoesConnection.pageInfo.endCursor
     );
   };
   
@@ -44,7 +45,7 @@ class TodoApp extends React.Component {
       }
   
   render() {
-    console.log(this.props.relay)
+    console.log('relay', this.props.relay)
     console.log('this props todos in todo app', this.props)
     return (
       
@@ -79,7 +80,7 @@ export default createPaginationContainer(TodoApp,
     graphql`
       fragment TodoApp on Query
         @argumentDefinitions(
-          count: {type: "Int", defaultValue: 3}
+          count: {type: "Int", defaultValue: 30}
           cursor: {type: "String"}
         ) {
           todoesConnection(
